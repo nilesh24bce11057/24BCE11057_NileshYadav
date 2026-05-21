@@ -1,3 +1,4 @@
+<-- start -->
 show databases;
 
 create database vitcampus1;
