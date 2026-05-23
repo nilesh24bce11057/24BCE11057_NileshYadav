@@ -1,9 +1,80 @@
 use vitcampus;
 
-show tables;
+select * from category;
 
-select*from worker;
 
+drop table products;
+
+#create table products(
+#pid int primary key,
+#pname varchar(25) not null,
+#cid int,
+#foreign key (cid) references category(cid) on delete cascade
+#)
+
+# order by , group by, having conditions
+
+# order by-> ascending or decending
+
+select *from worker
+where department='admin';
+
+select *from worker
+where department='admin'order by salary desc;
+
+#group by ->
+
+#to count how may workers are there
+select count(Worker_id) from worker where department='admin' or department='hr';
+
+#but to print from every department
+select department, count(department) from worker group by department;
+
+select department, count(department) from worker group by department order by department asc;
+#will arrange the names of the department as account,admin,hr 
+
+#to give the total salary from every department 
+
+select department, sum(salary) from worker group by department ;
+
+#having fxn -> used because where keyword cannot be used with aggregate fxnx
+
+#order 
+#SELECT column_name(s)
+#FROM table_name
+#WHERE condition
+#GROUP BY column_name(s)
+#HAVING condition
+#ORDER BY column_name(s);
+
+select department,count(department) from worker 
+group by department having count(department)>=3 order by department asc;
+
+select department,sum(salary) from worker 
+group by department having sum(salary)<300000 order by department asc;
+
+select * from worker limit 1 offset 3;
+
+#offsest
+#The OFFSET clause allows us to skip a specified number of rows before starting to return the results. OFFSET can only be used with the ORDER BY clause
+#OFFSET value must be greater than or equal to zero. It cannot be negative, else returns an error. 
+#SELECT * FROM table_name ORDER BY column_name LIMIT X OFFSET Y; 
+#or
+#SELECT * FROM table_name ORDER BY column_name LIMIT Y,X; 
+#X: Number of rows to return.
+#Y: Number of rows to skip.
+
+#subquery
+
+
+create table toppers(id int);
+insert into toppers values(2);
+insert into toppers values(5);
+
+select first_name,department from worker 
+where worker_id in(select id from toppers);
+
+select first_name,departmenr from worker;
 #to print the largest
 
 SELECT WORKER_ID,FIRST_NAME,DEPARTMENT,SALARY FROM Worker
@@ -28,4 +99,3 @@ WHERE w1.salary = (
     ORDER BY w2.salary DESC
     LIMIT 1 OFFSET 1
 );
-
